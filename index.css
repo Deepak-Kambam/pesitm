@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Montserrat:wght@900&display=swap');
+
+:root {
+  /* New Theme Variables based on User Request */
+  --color-primary: #5856D6;
+  /* Indigo/Purple from screenshot */
+  --color-background: #000000;
+  --color-surface: #1C1C1E;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #8E8E93;
+
+  /* Legacy Font Variables Remapped to Inter for consistency but keeping identifiers */
+  --font-standard: 'Inter', system-ui, sans-serif;
+  --font-classy: 'Inter', system-ui, sans-serif;
+  /* Override excessive serif */
+  --font-brand: 'Inter', system-ui, sans-serif;
+  /* Override excessive branding font */
+}
+
+body {
+  font-family: var(--font-standard);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism -> Solid Surface Remapping */
+/* The user wants the structure to remain (so classes like .glass stay in XML) 
+   but wants the card look to be solid dark gray like the screenshots. */
+
+.glass,
+.glass-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  /* Remove blur for solid look, or keep it subtle if transparency is desired. Screenshots show solid. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Specific override for the navbar if it needs to be slightly transparent */
+nav.glass {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  color: var(--color-text-primary);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Utility to ensure text colors match theme */
+.text-zinc-500,
+.text-zinc-600,
+.text-zinc-700 {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Primary Button Overrides for specific "white" buttons that should likely be purple now */
+/* However, to follow instructions strictly to "keep all elements", we only adjust colors via CSS variables where possible.
+   But if the HTML has hardcoded `bg-white text-black` classes (Tailwind), we need to rely on the fact 
+   that we reverted the HTML. To change those specific button colors without changing HTML, 
+   we might need to target them with specific CSS selectors if they have unique classes, 
+   or just accept that "revert" means revert. 
+   
+   BUT the user said "change themes(colors)". 
+   So we should try to override standard Tailwind classes if possible or use the Tailwind config in HTML to map colors.
+*/
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Animation Classes (Kept from original css to ensure animations work) */
+.animate-collide-left {
+  animation: collideFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-collide-right {
+  animation: collideFromRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-collide-bottom {
+  animation: collideFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes collideFromLeft {
+  0% {
+    transform: translateX(-150%);
+    opacity: 0;
+    filter: blur(20px);
+  }
+
+  80% {
+    transform: translateX(5%);
+    filter: blur(0px);
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes collideFromRight {
+  0% {
+    transform: translateX(150%);
+    opacity: 0;
+    filter: blur(20px);
+  }
+
+  80% {
+    transform: translateX(-5%);
+    filter: blur(0px);
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes collideFromBottom {
+  0% {
+    transform: translateY(150%);
+    opacity: 0;
+    filter: blur(20px);
+  }
+
+  80% {
+    transform: translateY(-5%);
+    filter: blur(0px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

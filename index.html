@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PESITM</title>
+  <!-- Keep original font links just in case, plus Inter -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Montserrat:wght@900&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Override defaults to match the requested theme
+            // This trick makes existing Tailwind classes look like the new theme
+            'zinc-500': '#8E8E93',
+            'zinc-600': '#8E8E93',
+            'zinc-700': '#8E8E93',
+            'zinc-800': '#1C1C1E', // Darker surface
+            black: '#000000',
+            // Map some white layouts to the primary purple if possible, 
+            // or just specific colorful classes if we can identify them.
+            // Since we can't easily change 'bg-white' to purple globally without breaking text,
+            // we rely on the CSS overrides for specific components or specific classes.
+          },
+          fontFamily: {
+            // Override font families to Inter
+            sans: ['Inter', 'sans-serif'],
+            brand: ['Inter', 'sans-serif'],
+            classy: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/index.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3"
+      }
+    }
+    </script>
+</head>
+
+<body class="bg-black text-white selection:bg-white selection:text-black">
+  <!-- Ambient Background Elements -->
+  <div class="bg-glow top-0 left-0"></div>
+  <div class="bg-glow bottom-0 right-0" style="animation-delay: -10s;"></div>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
