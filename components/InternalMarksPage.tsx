@@ -51,7 +51,51 @@ const InternalMarksPage: React.FC<InternalMarksPageProps> = ({ onExit }) => {
         </div>
 
         {/* The Performance Ledger Table */}
-        <div className="glass-card rounded-[2rem] overflow-hidden border border-white/5 mb-10 opacity-0 fill-mode-both animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
+        {/* Mobile View: Subject Cards */}
+        <div className="md:hidden space-y-4 mb-10">
+          {marksData.map((sub, i) => (
+            <div key={i} className="glass-card p-6 rounded-2xl border border-white/5 animate-in fade-in slide-in-from-bottom duration-700" style={{ animationDelay: `${i * 100}ms` }}>
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{sub.code}</div>
+                  <h3 className="text-white font-black text-lg uppercase tracking-tight leading-none mt-1">{sub.name}</h3>
+                </div>
+                <span className={`px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest ${sub.grade === 'O' ? 'bg-purple-500/20 text-purple-400' : 'bg-zinc-800 text-zinc-400'}`}>
+                  Grade {sub.grade}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-4 gap-2 mb-4">
+                <div className="text-center p-2 rounded-lg bg-white/[0.02]">
+                  <div className="text-[8px] text-zinc-600 font-bold uppercase">IA-1</div>
+                  <div className="text-white font-black text-sm mt-1">{sub.ia1}</div>
+                </div>
+                <div className="text-center p-2 rounded-lg bg-white/[0.02]">
+                  <div className="text-[8px] text-zinc-600 font-bold uppercase">IA-2</div>
+                  <div className="text-white font-black text-sm mt-1">{sub.ia2}</div>
+                </div>
+                <div className="text-center p-2 rounded-lg bg-white/[0.02]">
+                  <div className="text-[8px] text-zinc-600 font-bold uppercase">IA-3</div>
+                  <div className="text-white font-black text-sm mt-1">{sub.ia3}</div>
+                </div>
+                <div className="text-center p-2 rounded-lg bg-white/10 border border-white/5">
+                  <div className="text-[8px] text-zinc-400 font-bold uppercase">Total</div>
+                  <div className="text-white font-black text-sm mt-1">{sub.total}</div>
+                </div>
+              </div>
+
+              <div className="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-white transition-all duration-1000"
+                  style={{ width: `${(sub.total / sub.max) * 100}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Ledger Table */}
+        <div className="hidden md:block glass-card rounded-[2rem] overflow-hidden border border-white/5 mb-10 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
           <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
             <div>
               <h3 className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.3em]">Detailed Records</h3>
@@ -72,6 +116,7 @@ const InternalMarksPage: React.FC<InternalMarksPageProps> = ({ onExit }) => {
                   <th className="px-6 py-4 text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] text-center">IA-1</th>
                   <th className="px-6 py-4 text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] text-center">IA-2</th>
                   <th className="px-6 py-4 text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] text-center">IA-3</th>
+                  <th className="px-6 py-4 text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] text-center">Grade</th>
                   <th className="px-6 py-4 text-[9px] font-black text-zinc-600 uppercase tracking-[0.2em] text-center">Total</th>
                 </tr>
               </thead>
@@ -91,6 +136,9 @@ const InternalMarksPage: React.FC<InternalMarksPageProps> = ({ onExit }) => {
                     <td className="px-6 py-4 text-center font-black text-zinc-400 text-sm">{sub.ia1}</td>
                     <td className="px-6 py-4 text-center font-black text-zinc-400 text-sm">{sub.ia2}</td>
                     <td className="px-6 py-4 text-center font-black text-zinc-400 text-sm">{sub.ia3}</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className={`px-3 py-1 rounded-md text-[8px] font-black uppercase tracking-widest ${sub.grade === 'O' ? 'bg-purple-500/20 text-purple-400' : 'bg-zinc-800 text-zinc-400'}`}>{sub.grade}</span>
+                    </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex flex-col items-center">
                         <span className="font-black text-white text-xl tracking-tighter leading-none">{sub.total}</span>

@@ -6,6 +6,7 @@ interface TimetablePageProps {
 }
 
 const TimetablePage: React.FC<TimetablePageProps> = ({ onExit }) => {
+  const [activeDay, setActiveDay] = React.useState('Mon');
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const periods = [
     { time: '09:00 - 10:00', label: 'P1' },
@@ -85,7 +86,48 @@ const TimetablePage: React.FC<TimetablePageProps> = ({ onExit }) => {
         </div>
 
         {/* Initiating Subject Registry Table */}
-        <div className="glass-card rounded-[2rem] overflow-hidden border border-white/5 mb-10 opacity-0 fill-mode-both animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
+        {/* Mobile View: Day Tabs & vertical List */}
+        <div className="md:hidden mb-10">
+          <div className="flex overflow-x-auto gap-2 mb-6 pb-2 custom-scrollbar">
+            {days.map(day => (
+              <button
+                key={day}
+                onClick={() => setActiveDay(day)}
+                className={`flex-none px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeDay === day
+                  ? 'bg-white text-black shadow-lg scale-105'
+                  : 'glass text-zinc-500 hover:text-white'
+                  }`}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
+
+          <div className="space-y-3">
+            {periods.map((period, idx) => {
+              const subject = schedule[activeDay][idx];
+              const isBreak = subject === 'Lunch' || subject === 'Break';
+              return (
+                <div key={idx} className="glass card p-4 rounded-xl border border-white/5 flex justify-between items-center bg-white/[0.02]">
+                  <div>
+                    <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">{period.time}</div>
+                    <div className={`text-sm font-black uppercase tracking-tight ${isBreak ? 'text-zinc-600' : 'text-white'}`}>
+                      {subject}
+                    </div>
+                  </div>
+                  {!isBreak && (
+                    <div className="px-3 py-1 bg-white/5 rounded-lg text-[8px] font-bold text-zinc-400 uppercase tracking-widest">
+                      Hall B-304
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Desktop View: Master Schedule Table */}
+        <div className="hidden md:block glass-card rounded-[2rem] overflow-hidden border border-white/5 mb-10 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
           <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
             <div>
               <h3 className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.3em]">Master Schedule</h3>
@@ -191,7 +233,8 @@ const TimetablePage: React.FC<TimetablePageProps> = ({ onExit }) => {
         </div>
 
         {/* Subject Registry Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom duration-1000 delay-2000 fill-mode-both opacity-0">
+        {/* Subject Registry Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
           {subjectsRegistry.map((sub, i) => (
             <div key={i} className="glass-card p-4 rounded-xl border border-white/5 hover:bg-white/[0.05] transition-colors group">
               <div className="flex justify-between items-start mb-2">
@@ -205,7 +248,8 @@ const TimetablePage: React.FC<TimetablePageProps> = ({ onExit }) => {
         </div>
 
         {/* Interaction Legend */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in duration-1000 delay-2500 fill-mode-both opacity-0">
+        {/* Interaction Legend */}
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in duration-1000 delay-500">
           {[
             { label: 'Theory Engagement', color: 'border-white/10' },
             { label: 'Practical Labs', color: 'bg-white text-black' },
