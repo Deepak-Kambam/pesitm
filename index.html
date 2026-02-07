@@ -1,60 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PESITM</title>
-  <!-- Keep original font links just in case, plus Inter -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Montserrat:wght@900&family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            // Override defaults to match the requested theme
-            // This trick makes existing Tailwind classes look like the new theme
-            'zinc-500': '#8E8E93',
-            'zinc-600': '#8E8E93',
-            'zinc-700': '#8E8E93',
-            'zinc-800': '#1C1C1E', // Darker surface
-            black: '#000000',
-            // Map some white layouts to the primary purple if possible, 
-            // or just specific colorful classes if we can identify them.
-            // Since we can't easily change 'bg-white' to purple globally without breaking text,
-            // we rely on the CSS overrides for specific components or specific classes.
-          },
-          fontFamily: {
-            // Override font families to Inter
-            sans: ['Inter', 'sans-serif'],
-            brand: ['Inter', 'sans-serif'],
-            classy: ['Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="/index.css">
-  <script type="importmap">
-    {
-      "imports": {
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "react/": "https://esm.sh/react@^19.2.3/",
-        "react": "https://esm.sh/react@^19.2.3"
-      }
-    }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PESITM Management System - A modern college management solution">
+  <title>PESITM Manager</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230F62FE' rx='15' width='100' height='100'/><text x='50' y='65' font-size='50' fill='white' text-anchor='middle' font-family='sans-serif' font-weight='bold'>V</text></svg>">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/variables.css">
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/pages.css">
 </head>
 
-<body class="bg-black text-white selection:bg-white selection:text-black">
-  <!-- Ambient Background Elements -->
-  <div class="bg-glow top-0 left-0"></div>
-  <div class="bg-glow bottom-0 right-0" style="animation-delay: -10s;"></div>
-  <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+<body>
+  <!-- App Root -->
+  <div id="app">
+    <!-- Loading State -->
+    <div class="login-page">
+      <div style="text-align: center;">
+        <div class="sidebar-logo-icon" style="width: 64px; height: 64px; margin: 0 auto 16px; font-size: 28px;">V</div>
+        <p style="color: var(--text-secondary);">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/students.js"></script>
+  <script src="js/pages/faculty.js"></script>
+  <script src="js/pages/academics.js"></script>
+  <script src="js/pages/timetable.js"></script>
+  <script src="js/pages/exams.js"></script>
+  <script src="js/pages/leave.js"></script>
+  <script src="js/pages/communication.js"></script>
+  <script src="js/app.js"></script>
 </body>
 
 </html>
